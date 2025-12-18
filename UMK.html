@@ -1,0 +1,1933 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UMKMart - Platform UMKM Digital</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF6B35;
+            --secondary: #F7931E;
+            --accent: #004E89;
+            --dark: #1A1A2E;
+            --light: #FFF5E6;
+            --success: #2ECC71;
+            --danger: #E74C3C;
+            --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--light);
+            overflow-x: hidden;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(-100%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        /* Navbar */
+        .navbar-custom {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-brand {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            font-size: 1.8rem;
+            color: white !important;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-link {
+            color: white !important;
+            font-weight: 500;
+            margin: 0 0.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: white;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover:after {
+            width: 80%;
+        }
+
+        .btn-auth {
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-login {
+            background: white;
+            color: var(--primary);
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-register {
+            background: var(--accent);
+            color: white;
+            border: none;
+        }
+
+        .btn-register:hover {
+            background: #003d6e;
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            padding: 5rem 0;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .hero-btn {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: 3px solid white;
+            background: white;
+            color: var(--primary);
+        }
+
+        .hero-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Cards */
+        .product-card, .order-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+            border: none;
+            margin-bottom: 2rem;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.1);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-name {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 1rem 0;
+        }
+
+        .badge-category {
+            background: var(--accent);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* Buttons */
+        .btn-primary-custom {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border: none;
+            border-radius: 12px;
+            padding: 0.8rem 1.5rem;
+            font-weight: 600;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 107, 53, 0.4);
+        }
+
+        .btn-outline-custom {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            border-radius: 12px;
+            padding: 0.8rem 1.5rem;
+            font-weight: 600;
+            background: transparent;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline-custom:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Forms */
+        .form-container {
+            background: white;
+            border-radius: 25px;
+            padding: 3rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: 3rem auto;
+        }
+
+        .form-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--dark);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .form-control {
+            border-radius: 12px;
+            padding: 0.8rem 1rem;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 0.2rem rgba(255, 107, 53, 0.25);
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Search Bar */
+        .search-container {
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 1rem 3rem 1rem 1.5rem;
+            border-radius: 50px;
+            border: 3px solid var(--primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-bar:focus {
+            outline: none;
+            box-shadow: 0 5px 20px rgba(255, 107, 53, 0.2);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+            font-size: 1.3rem;
+        }
+
+        /* Cart Badge */
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--danger);
+            color: white;
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        /* Modal Customization */
+        .modal-content {
+            border-radius: 25px;
+            border: none;
+            overflow: hidden;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border: none;
+            padding: 1.5rem;
+        }
+
+        .modal-title {
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        /* Chat */
+        .chat-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 1.5rem;
+            overflow-y: auto;
+            background: #f8f9fa;
+        }
+
+        .message {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .message-buyer {
+            justify-content: flex-end;
+        }
+
+        .message-content {
+            background: var(--primary);
+            color: white;
+            padding: 0.8rem 1.2rem;
+            border-radius: 18px;
+            max-width: 70%;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .message-buyer .message-content {
+            background: var(--accent);
+        }
+
+        .chat-input-container {
+            padding: 1rem;
+            background: white;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .chat-input {
+            border-radius: 25px;
+            border: 2px solid var(--primary);
+            padding: 0.8rem 1.2rem;
+        }
+
+        /* Section Styling */
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--dark);
+            margin: 3rem 0 2rem 0;
+            text-align: center;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 2px;
+        }
+
+        /* Filter Buttons */
+        .filter-btn {
+            padding: 0.6rem 1.5rem;
+            border-radius: 25px;
+            border: 2px solid var(--primary);
+            background: white;
+            color: var(--primary);
+            font-weight: 600;
+            margin: 0.3rem;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Stats Cards */
+        .stat-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            transition: all 0.3s ease;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .stat-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--dark);
+        }
+
+        .stat-label {
+            color: #666;
+            font-weight: 500;
+            margin-top: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .form-container {
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            border: 4px solid rgba(255, 107, 53, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid var(--primary);
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 2rem auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Hide sections */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #999;
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        /* Notification Badge */
+        .notification-badge {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--success);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            z-index: 9999;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .page-section {
+            padding: 2rem 0;
+            min-height: 60vh;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <div class="container">
+            <a class="navbar-brand" href="#" onclick="showHome()">
+                <i class="fas fa-store"></i> UMKMart
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center" id="navMenu">
+                    <!-- Dynamic menu items will be inserted here -->
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <div id="mainContent">
+        <!-- Home/Landing Page -->
+        <section id="homeSection" class="page-section">
+            <div class="hero-section">
+                <div class="container">
+                    <div class="hero-content text-center animate-fade-in">
+                        <h1 class="hero-title">Selamat Datang di UMKMart</h1>
+                        <p class="hero-subtitle">Platform Digital untuk UMKM Indonesia. Jual dan Beli Produk Lokal dengan Mudah!</p>
+                        <button class="hero-btn" onclick="showLogin()">
+                            <i class="fas fa-rocket"></i> Mulai Sekarang
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container my-5">
+                <h2 class="section-title">Mengapa Memilih UMKMart?</h2>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fas fa-shopping-bag"></i></div>
+                            <div class="stat-value">1000+</div>
+                            <div class="stat-label">Produk UMKM</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fas fa-users"></i></div>
+                            <div class="stat-value">500+</div>
+                            <div class="stat-label">Penjual Terdaftar</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fas fa-star"></i></div>
+                            <div class="stat-value">4.8</div>
+                            <div class="stat-label">Rating Pengguna</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Login Page -->
+        <section id="loginSection" class="page-section hidden">
+            <div class="container">
+                <div class="form-container animate-fade-in">
+                    <h2 class="form-title">Masuk ke Akun</h2>
+                    <form id="loginForm" onsubmit="handleLogin(event)">
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" id="loginEmail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input type="password" class="form-control" id="loginPassword" required>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="rememberMe">
+                            <label class="form-check-label" for="rememberMe">Ingat Saya</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary-custom w-100 mb-3">
+                            <i class="fas fa-sign-in-alt"></i> Masuk
+                        </button>
+                        <div class="text-center">
+                            <p>Belum punya akun? <a href="#" onclick="showRegister()" class="text-decoration-none fw-bold" style="color: var(--primary)">Daftar Sekarang</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Register Page -->
+        <section id="registerSection" class="page-section hidden">
+            <div class="container">
+                <div class="form-container animate-fade-in">
+                    <h2 class="form-title">Daftar Akun Baru</h2>
+                    <form id="registerForm" onsubmit="handleRegister(event)">
+                        <div class="mb-3">
+                            <label class="form-label">Nama Lengkap</label>
+                            <input type="text" class="form-control" id="registerName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" id="registerEmail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Password (min. 6 karakter)</label>
+                            <input type="password" class="form-control" id="registerPassword" required minlength="6">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Tipe Akun</label>
+                            <select class="form-control" id="registerType" required>
+                                <option value="buyer">Pembeli</option>
+                                <option value="seller">Penjual</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary-custom w-100 mb-3">
+                            <i class="fas fa-user-plus"></i> Daftar
+                        </button>
+                        <div class="text-center">
+                            <p>Sudah punya akun? <a href="#" onclick="showLogin()" class="text-decoration-none fw-bold" style="color: var(--primary)">Masuk</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard Pembeli -->
+        <section id="buyerDashboard" class="page-section hidden">
+            <div class="container">
+                <div class="search-container">
+                    <input type="text" class="search-bar" id="searchProduct" placeholder="Cari produk yang kamu inginkan..." onkeyup="searchProducts()">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+
+                <div class="mb-4 text-center">
+                    <button class="filter-btn active" onclick="filterByCategory('all')">Semua</button>
+                    <button class="filter-btn" onclick="filterByCategory('Makanan')">Makanan</button>
+                    <button class="filter-btn" onclick="filterByCategory('Minuman')">Minuman</button>
+                    <button class="filter-btn" onclick="filterByCategory('Fashion')">Fashion</button>
+                    <button class="filter-btn" onclick="filterByCategory('Kerajinan')">Kerajinan</button>
+                    <button class="filter-btn" onclick="filterByCategory('Elektronik')">Elektronik</button>
+                </div>
+
+                <h2 class="section-title">Produk Pilihan</h2>
+                <div id="productsGrid" class="row">
+                    <!-- Products will be loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard Penjual -->
+        <section id="sellerDashboard" class="page-section hidden">
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2 class="section-title mb-0">Produk Saya</h2>
+                    <button class="btn btn-primary-custom" onclick="showAddProductModal()">
+                        <i class="fas fa-plus"></i> Tambah Produk
+                    </button>
+                </div>
+
+                <div id="sellerProductsGrid" class="row">
+                    <!-- Seller products will be loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Keranjang -->
+        <section id="cartSection" class="page-section hidden">
+            <div class="container">
+                <h2 class="section-title">Keranjang Belanja</h2>
+                <div id="cartItems" class="row">
+                    <!-- Cart items will be loaded here -->
+                </div>
+                <div class="text-end mt-4">
+                    <h3 class="mb-3">Total: <span id="cartTotal" style="color: var(--primary)">Rp 0</span></h3>
+                    <button class="btn btn-primary-custom btn-lg" onclick="showCheckoutModal()" id="checkoutBtn">
+                        <i class="fas fa-credit-card"></i> Checkout
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Riwayat Transaksi -->
+        <section id="ordersSection" class="page-section hidden">
+            <div class="container">
+                <h2 class="section-title">Riwayat Transaksi</h2>
+                <div id="ordersList">
+                    <!-- Orders will be loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Chat -->
+        <section id="chatSection" class="page-section hidden">
+            <div class="container">
+                <h2 class="section-title">Chat</h2>
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Kontak</h5>
+                                <div id="chatContacts">
+                                    <!-- Chat contacts will be loaded here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="chat-container">
+                            <div class="chat-messages" id="chatMessages">
+                                <div class="empty-state">
+                                    <i class="fas fa-comments"></i>
+                                    <p>Pilih kontak untuk memulai chat</p>
+                                </div>
+                            </div>
+                            <div class="chat-input-container">
+                                <div class="input-group">
+                                    <input type="text" class="form-control chat-input" id="chatInput" placeholder="Ketik pesan...">
+                                    <button class="btn btn-primary-custom" onclick="sendMessage()">
+                                        <i class="fas fa-paper-plane"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal: Add Product -->
+    <div class="modal fade" id="addProductModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Tambah Produk Baru</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addProductForm" onsubmit="handleAddProduct(event)">
+                        <div class="mb-3">
+                            <label class="form-label">Nama Produk</label>
+                            <input type="text" class="form-control" id="productName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Deskripsi</label>
+                            <textarea class="form-control" id="productDescription" rows="3" required></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Harga</label>
+                                <input type="number" class="form-control" id="productPrice" required min="0">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Stok</label>
+                                <input type="number" class="form-control" id="productStock" required min="0">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Kategori</label>
+                            <select class="form-control" id="productCategory" required>
+                                <option value="">Pilih Kategori</option>
+                                <option value="Makanan">Makanan</option>
+                                <option value="Minuman">Minuman</option>
+                                <option value="Fashion">Fashion</option>
+                                <option value="Kerajinan">Kerajinan</option>
+                                <option value="Elektronik">Elektronik</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">URL Foto Produk</label>
+                            <input type="url" class="form-control" id="productImage" placeholder="https://example.com/image.jpg">
+                            <small class="text-muted">Atau biarkan kosong untuk foto default</small>
+                        </div>
+                        <button type="submit" class="btn btn-primary-custom w-100">
+                            <i class="fas fa-save"></i> Simpan Produk
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Product Detail -->
+    <div class="modal fade" id="productDetailModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalProductName"></h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <img id="modalProductImage" class="w-100 rounded" style="max-height: 400px; object-fit: cover;">
+                        </div>
+                        <div class="col-md-6">
+                            <h3 class="product-price" id="modalProductPrice"></h3>
+                            <p><span class="badge-category" id="modalProductCategory"></span></p>
+                            <p class="mt-3" id="modalProductDescription"></p>
+                            <p><strong>Stok:</strong> <span id="modalProductStock"></span></p>
+                            <p><strong>Penjual:</strong> <span id="modalProductSeller"></span></p>
+                            <div class="mt-4">
+                                <label class="form-label">Jumlah:</label>
+                                <input type="number" class="form-control mb-3" id="modalProductQuantity" value="1" min="1">
+                                <button class="btn btn-primary-custom w-100" onclick="addToCart()">
+                                    <i class="fas fa-cart-plus"></i> Tambah ke Keranjang
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Checkout -->
+    <div class="modal fade" id="checkoutModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Checkout Pembayaran</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="checkoutForm" onsubmit="handleCheckout(event)">
+                        <h6 class="mb-3">Alamat Pengiriman</h6>
+                        <div class="mb-3">
+                            <label class="form-label">Nama Penerima</label>
+                            <input type="text" class="form-control" id="receiverName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Alamat Lengkap</label>
+                            <textarea class="form-control" id="shippingAddress" rows="3" required></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Nomor Telepon</label>
+                                <input type="tel" class="form-control" id="phoneNumber" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Kode Pos</label>
+                                <input type="text" class="form-control" id="postalCode" required>
+                            </div>
+                        </div>
+                        
+                        <h6 class="mt-4 mb-3">Metode Pembayaran</h6>
+                        <div class="mb-3">
+                            <select class="form-control" id="paymentMethod" required>
+                                <option value="">Pilih Metode Pembayaran</option>
+                                <option value="Transfer Bank">Transfer Bank</option>
+                                <option value="E-Wallet">E-Wallet (GoPay/OVO/Dana)</option>
+                                <option value="QRIS">QRIS</option>
+                            </select>
+                        </div>
+
+                        <div class="mt-4 p-3 bg-light rounded">
+                            <h5>Ringkasan Pesanan</h5>
+                            <div id="checkoutSummary"></div>
+                            <hr>
+                            <div class="d-flex justify-content-between">
+                                <strong>Total Pembayaran:</strong>
+                                <strong style="color: var(--primary)" id="checkoutTotal"></strong>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary-custom w-100 mt-4">
+                            <i class="fas fa-check-circle"></i> Bayar Sekarang
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Initialize App
+        let currentUser = null;
+        let currentSection = 'home';
+        let selectedProductId = null;
+        let selectedChatUser = null;
+        let currentFilter = 'all';
+
+        // Check if user is logged in on page load
+        window.onload = function() {
+            checkSession();
+            initializeSampleData();
+        };
+
+        // Session Management
+        function checkSession() {
+            const session = localStorage.getItem('umkmart_session');
+            if (session) {
+                currentUser = JSON.parse(session);
+                updateNavbar();
+                if (currentUser.type === 'seller') {
+                    showSellerDashboard();
+                } else {
+                    showBuyerDashboard();
+                }
+            } else {
+                showHome();
+            }
+        }
+
+        // Navigation Functions
+        function showHome() {
+            hideAllSections();
+            document.getElementById('homeSection').classList.remove('hidden');
+            currentSection = 'home';
+        }
+
+        function showLogin() {
+            hideAllSections();
+            document.getElementById('loginSection').classList.remove('hidden');
+            currentSection = 'login';
+        }
+
+        function showRegister() {
+            hideAllSections();
+            document.getElementById('registerSection').classList.remove('hidden');
+            currentSection = 'register';
+        }
+
+        function showBuyerDashboard() {
+            hideAllSections();
+            document.getElementById('buyerDashboard').classList.remove('hidden');
+            loadProducts();
+            currentSection = 'buyer';
+        }
+
+        function showSellerDashboard() {
+            hideAllSections();
+            document.getElementById('sellerDashboard').classList.remove('hidden');
+            loadSellerProducts();
+            currentSection = 'seller';
+        }
+
+        function showCart() {
+            hideAllSections();
+            document.getElementById('cartSection').classList.remove('hidden');
+            loadCart();
+            currentSection = 'cart';
+        }
+
+        function showOrders() {
+            hideAllSections();
+            document.getElementById('ordersSection').classList.remove('hidden');
+            loadOrders();
+            currentSection = 'orders';
+        }
+
+        function showChat() {
+            hideAllSections();
+            document.getElementById('chatSection').classList.remove('hidden');
+            loadChatContacts();
+            currentSection = 'chat';
+        }
+
+        function hideAllSections() {
+            const sections = document.querySelectorAll('.page-section');
+            sections.forEach(section => section.classList.add('hidden'));
+        }
+
+        // Update Navbar based on user state
+        function updateNavbar() {
+            const navMenu = document.getElementById('navMenu');
+            
+            if (!currentUser) {
+                navMenu.innerHTML = `
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showHome()">Beranda</a>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-auth btn-login ms-2" onclick="showLogin()">Masuk</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-auth btn-register ms-2" onclick="showRegister()">Daftar</button>
+                    </li>
+                `;
+            } else {
+                const cartCount = getCartCount();
+                if (currentUser.type === 'buyer') {
+                    navMenu.innerHTML = `
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showBuyerDashboard()">Produk</a>
+                        </li>
+                        <li class="nav-item position-relative">
+                            <a class="nav-link" href="#" onclick="showCart()">
+                                <i class="fas fa-shopping-cart"></i> Keranjang
+                                ${cartCount > 0 ? `<span class="cart-badge">${cartCount}</span>` : ''}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showOrders()">Pesanan</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showChat()">
+                                <i class="fas fa-comments"></i> Chat
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <span class="nav-link">Halo, ${currentUser.name}</span>
+                        </li>
+                        <li class="nav-item">
+                            <button class="btn btn-auth btn-login ms-2" onclick="logout()">Keluar</button>
+                        </li>
+                    `;
+                } else {
+                    navMenu.innerHTML = `
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showSellerDashboard()">Produk Saya</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showOrders()">Pesanan</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showChat()">
+                                <i class="fas fa-comments"></i> Chat
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <span class="nav-link">Halo, ${currentUser.name}</span>
+                        </li>
+                        <li class="nav-item">
+                            <button class="btn btn-auth btn-login ms-2" onclick="logout()">Keluar</button>
+                        </li>
+                    `;
+                }
+            }
+        }
+
+        // Authentication Functions
+        function handleRegister(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('registerName').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            const type = document.getElementById('registerType').value;
+
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showNotification('Email tidak valid!', 'danger');
+                return;
+            }
+
+            // Get existing users
+            let users = JSON.parse(localStorage.getItem('umkmart_users') || '[]');
+            
+            // Check if email already exists
+            if (users.some(user => user.email === email)) {
+                showNotification('Email sudah terdaftar!', 'danger');
+                return;
+            }
+
+            // Simple password hashing (Base64 encoding - for demo purposes)
+            const hashedPassword = btoa(password);
+
+            // Add new user
+            const newUser = {
+                id: Date.now(),
+                name,
+                email,
+                password: hashedPassword,
+                type,
+                createdAt: new Date().toISOString()
+            };
+
+            users.push(newUser);
+            localStorage.setItem('umkmart_users', JSON.stringify(users));
+
+            showNotification('Registrasi berhasil! Silakan login.', 'success');
+            document.getElementById('registerForm').reset();
+            showLogin();
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
+
+            const users = JSON.parse(localStorage.getItem('umkmart_users') || '[]');
+            const hashedPassword = btoa(password);
+            
+            const user = users.find(u => u.email === email && u.password === hashedPassword);
+
+            if (user) {
+                currentUser = user;
+                if (rememberMe) {
+                    localStorage.setItem('umkmart_session', JSON.stringify(user));
+                } else {
+                    sessionStorage.setItem('umkmart_session', JSON.stringify(user));
+                }
+                
+                updateNavbar();
+                showNotification(`Selamat datang, ${user.name}!`, 'success');
+                
+                if (user.type === 'seller') {
+                    showSellerDashboard();
+                } else {
+                    showBuyerDashboard();
+                }
+            } else {
+                showNotification('Email atau password salah!', 'danger');
+            }
+        }
+
+        function logout() {
+            currentUser = null;
+            localStorage.removeItem('umkmart_session');
+            sessionStorage.removeItem('umkmart_session');
+            updateNavbar();
+            showHome();
+            showNotification('Berhasil keluar dari akun', 'success');
+        }
+
+        // Product Functions
+        function loadProducts() {
+            const products = JSON.parse(localStorage.getItem('umkmart_products') || '[]');
+            const grid = document.getElementById('productsGrid');
+            
+            let filteredProducts = products;
+            if (currentFilter !== 'all') {
+                filteredProducts = products.filter(p => p.category === currentFilter);
+            }
+
+            if (filteredProducts.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-12">
+                        <div class="empty-state">
+                            <i class="fas fa-box-open"></i>
+                            <p>Belum ada produk tersedia</p>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = filteredProducts.map(product => `
+                <div class="col-md-4 col-lg-3">
+                    <div class="product-card animate-fade-in" onclick="showProductDetail(${product.id})">
+                        <img src="${product.image}" class="product-image" alt="${product.name}">
+                        <div class="product-info">
+                            <span class="badge-category">${product.category}</span>
+                            <h5 class="product-name">${product.name}</h5>
+                            <p class="text-muted small">${product.description.substring(0, 60)}...</p>
+                            <div class="product-price">Rp ${product.price.toLocaleString('id-ID')}</div>
+                            <p class="small text-muted">Stok: ${product.stock}</p>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function loadSellerProducts() {
+            if (!currentUser) return;
+            
+            const products = JSON.parse(localStorage.getItem('umkmart_products') || '[]');
+            const sellerProducts = products.filter(p => p.sellerId === currentUser.id);
+            const grid = document.getElementById('sellerProductsGrid');
+
+            if (sellerProducts.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-12">
+                        <div class="empty-state">
+                            <i class="fas fa-box-open"></i>
+                            <p>Anda belum memiliki produk. Tambahkan produk pertama Anda!</p>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = sellerProducts.map(product => `
+                <div class="col-md-4">
+                    <div class="product-card">
+                        <img src="${product.image}" class="product-image" alt="${product.name}">
+                        <div class="product-info">
+                            <span class="badge-category">${product.category}</span>
+                            <h5 class="product-name">${product.name}</h5>
+                            <div class="product-price">Rp ${product.price.toLocaleString('id-ID')}</div>
+                            <p class="small">Stok: ${product.stock}</p>
+                            <div class="mt-3">
+                                <button class="btn btn-outline-custom btn-sm me-2" onclick="editProduct(${product.id})">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="btn btn-outline-danger btn-sm" onclick="deleteProduct(${product.id})">
+                                    <i class="fas fa-trash"></i> Hapus
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function showAddProductModal() {
+            const modal = new bootstrap.Modal(document.getElementById('addProductModal'));
+            modal.show();
+        }
+
+        function handleAddProduct(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('productName').value;
+            const description = document.getElementById('productDescription').value;
+            const price = parseInt(document.getElementById('productPrice').value);
+            const stock = parseInt(document.getElementById('productStock').value);
+            const category = document.getElementById('productCategory').value;
+            const imageInput = document.getElementById('productImage').value;
+
+            const defaultImages = {
+                'Makanan': 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=500',
+                'Minuman': 'https://images.unsplash.com/photo-1544145945-f90425340c7e?w=500',
+                'Fashion': 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=500',
+                'Kerajinan': 'https://images.unsplash.com/photo-1452860606245-08befc0ff44b?w=500',
+                'Elektronik': 'https://images.unsplash.com/photo-1498049794561-7780e7231661?w=500'
+            };
+
+            const image = imageInput || defaultImages[category] || 'https://via.placeholder.com/500';
+
+            const products = JSON.parse(localStorage.getItem('umkmart_products') || '[]');
+            
+            const newProduct = {
+                id: Date.now(),
+                name,
+                description,
+                price,
+                stock,
+                category,
+                image,
+                sellerId: currentUser.id,
+                sellerName: currentUser.name,
+                createdAt: new Date().toISOString()
+            };
+
+            products.push(newProduct);
+            localStorage.setItem('umkmart_products', JSON.stringify(products));
+
+            showNotification('Produk berhasil ditambahkan!', 'success');
+            document.getElementById('addProductForm').reset();
+            bootstrap.Modal.getInstance(document.getElementById('addProductModal')).hide();
+            loadSellerProducts();
+        }
+
+        function showProductDetail(productId) {
+            const products = JSON.parse(localStorage.getItem('umkmart_products') || '[]');
+            const product = products.find(p => p.id === productId);
+            
+            if (!product) return;
+
+            selectedProductId = productId;
+            
+            document.getElementById('modalProductName').textContent = product.name;
+            document.getElementById('modalProductImage').src = product.image;
+            document.getElementById('modalProductPrice').textContent = `Rp ${product.price.toLocaleString('id-ID')}`;
+            document.getElementById('modalProductCategory').textContent = product.category;
+            document.getElementById('modalProductDescription').textContent = product.description;
+            document.getElementById('modalProductStock').textContent = product.stock;
+            document.getElementById('modalProductSeller').textContent = product.sellerName;
+            document.getElementById('modalProductQuantity').max = product.stock;
+            
+            const modal = new bootstrap.Modal(document.getElementById('productDetailModal'));
+            modal.show();
+        }
+
+        function deleteProduct(productId) {
+            if (!confirm('Apakah Anda yakin ingin menghapus produk ini?')) return;
+            
+            let products = JSON.parse(localStorage.getItem('umkmart_products') || '[]');
+            products = products.filter(p => p.id !== productId);
+            localStorage.setItem('umkmart_products', JSON.stringify(products));
+            
+            showNotification('Produk berhasil dihapus', 'success');
+            loadSellerProducts();
+        }
+
+        function searchProducts() {
+            const searchTerm = document.getElementById('searchProduct').value.toLowerCase();
+            const products = JSON.parse(localStorage.getItem('umkmart_products') || '[]');
+            const grid = document.getElementById('productsGrid');
+            
+            let filteredProducts = products.filter(p => 
+                p.name.toLowerCase().includes(searchTerm) || 
+                p.description.toLowerCase().includes(searchTerm)
+            );
+
+            if (currentFilter !== 'all') {
+                filteredProducts = filteredProducts.filter(p => p.category === currentFilter);
+            }
+
+            if (filteredProducts.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-12">
+                        <div class="empty-state">
+                            <i class="fas fa-search"></i>
+                            <p>Tidak ada produk yang sesuai dengan pencarian</p>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = filteredProducts.map(product => `
+                <div class="col-md-4 col-lg-3">
+                    <div class="product-card" onclick="showProductDetail(${product.id})">
+                        <img src="${product.image}" class="product-image" alt="${product.name}">
+                        <div class="product-info">
+                            <span class="badge-category">${product.category}</span>
+                            <h5 class="product-name">${product.name}</h5>
+                            <p class="text-muted small">${product.description.substring(0, 60)}...</p>
+                            <div class="product-price">Rp ${product.price.toLocaleString('id-ID')}</div>
+                            <p class="small text-muted">Stok: ${product.stock}</p>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterByCategory(category) {
+            currentFilter = category;
+            
+            // Update active button
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            loadProducts();
+        }
+
+        // Cart Functions
+        function addToCart() {
+            if (!currentUser) {
+                showNotification('Silakan login terlebih dahulu', 'danger');
+                return;
+            }
+
+            const products = JSON.parse(localStorage.getItem('umkmart_products') || '[]');
+            const product = products.find(p => p.id === selectedProductId);
+            const quantity = parseInt(document.getElementById('modalProductQuantity').value);
+
+            if (!product || quantity > product.stock) {
+                showNotification('Stok tidak mencukupi!', 'danger');
+                return;
+            }
+
+            let cart = JSON.parse(localStorage.getItem(`umkmart_cart_${currentUser.id}`) || '[]');
+            
+            const existingItem = cart.find(item => item.productId === selectedProductId);
+            if (existingItem) {
+                existingItem.quantity += quantity;
+            } else {
+                cart.push({
+                    productId: selectedProductId,
+                    quantity,
+                    addedAt: new Date().toISOString()
+                });
+            }
+
+            localStorage.setItem(`umkmart_cart_${currentUser.id}`, JSON.stringify(cart));
+            showNotification('Produk ditambahkan ke keranjang!', 'success');
+            updateNavbar();
+            bootstrap.Modal.getInstance(document.getElementById('productDetailModal')).hide();
+        }
+
+        function loadCart() {
+            if (!currentUser) return;
+
+            const cart = JSON.parse(localStorage.getItem(`umkmart_cart_${currentUser.id}`) || '[]');
+            const products = JSON.parse(localStorage.getItem('umkmart_products') || '[]');
+            const container = document.getElementById('cartItems');
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="col-12">
+                        <div class="empty-state">
+                            <i class="fas fa-shopping-cart"></i>
+                            <p>Keranjang Anda kosong</p>
+                        </div>
+                    </div>
+                `;
+                document.getElementById('checkoutBtn').disabled = true;
+                return;
+            }
+
+            document.getElementById('checkoutBtn').disabled = false;
+            let total = 0;
+
+            container.innerHTML = cart.map(item => {
+                const product = products.find(p => p.id === item.productId);
+                if (!product) return '';
+                
+                const subtotal = product.price * item.quantity;
+                total += subtotal;
+
+                return `
+                    <div class="col-12 mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-md-2">
+                                        <img src="${product.image}" class="img-fluid rounded" alt="${product.name}">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h5>${product.name}</h5>
+                                        <p class="text-muted mb-0">${product.category}</p>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <p class="mb-0">Rp ${product.price.toLocaleString('id-ID')}</p>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="number" class="form-control" value="${item.quantity}" 
+                                               min="1" max="${product.stock}" 
+                                               onchange="updateCartQuantity(${item.productId}, this.value)">
+                                    </div>
+                                    <div class="col-md-2 text-end">
+                                        <p class="mb-2"><strong>Rp ${subtotal.toLocaleString('id-ID')}</strong></p>
+                                        <button class="btn btn-outline-danger btn-sm" onclick="removeFromCart(${item.productId})">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('cartTotal').textContent = `Rp ${total.toLocaleString('id-ID')}`;
+        }
+
+        function updateCartQuantity(productId, newQuantity) {
+            let cart = JSON.parse(localStorage.getItem(`umkmart_cart_${currentUser.id}`) || '[]');
+            const item = cart.find(i => i.productId === productId);
+            
+            if (item) {
+                item.quantity = parseInt(newQuantity);
+                localStorage.setItem(`umkmart_cart_${currentUser.id}`, JSON.stringify(cart));
+                loadCart();
+            }
+        }
+
+        function removeFromCart(productId) {
+            let cart = JSON.parse(localStorage.getItem(`umkmart_cart_${currentUser.id}`) || '[]');
+            cart = cart.filter(item => item.productId !== productId);
+            localStorage.setItem(`umkmart_cart_${currentUser.id}`, JSON.stringify(cart));
+            showNotification('Produk dihapus dari keranjang', 'success');
+            loadCart();
+            updateNavbar();
+        }
+
+        function getCartCount() {
+            if (!currentUser) return 0;
+            const cart = JSON.parse(localStorage.getItem(`umkmart_cart_${currentUser.id}`) || '[]');
+            return cart.reduce((sum, item) => sum + item.quantity, 0);
+        }
+
+        // Checkout Functions
+        function showCheckoutModal() {
+            const cart = JSON.parse(localStorage.getItem(`umkmart_cart_${currentUser.id}`) || '[]');
+            if (cart.length === 0) return;
+
+            const products = JSON.parse(localStorage.getItem('umkmart_products') || '[]');
+            const summary = document.getElementById('checkoutSummary');
+            let total = 0;
+
+            summary.innerHTML = cart.map(item => {
+                const product = products.find(p => p.id === item.productId);
+                if (!product) return '';
+                const subtotal = product.price * item.quantity;
+                total += subtotal;
+                return `
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>${product.name} (${item.quantity}x)</span>
+                        <span>Rp ${subtotal.toLocaleString('id-ID')}</span>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('checkoutTotal').textContent = `Rp ${total.toLocaleString('id-ID')}`;
+            
+            const modal = new bootstrap.Modal(document.getElementById('checkoutModal'));
+            modal.show();
+        }
+
+        function handleCheckout(event) {
+            event.preventDefault();
+
+            const cart = JSON.parse(localStorage.getItem(`umkmart_cart_${currentUser.id}`) || '[]');
+            const products = JSON.parse(localStorage.getItem('umkmart_products') || '[]');
+            
+            const receiverName = document.getElementById('receiverName').value;
+            const address = document.getElementById('shippingAddress').value;
+            const phone = document.getElementById('phoneNumber').value;
+            const postalCode = document.getElementById('postalCode').value;
+            const paymentMethod = document.getElementById('paymentMethod').value;
+
+            let total = 0;
+            const orderItems = cart.map(item => {
+                const product = products.find(p => p.id === item.productId);
+                const subtotal = product.price * item.quantity;
+                total += subtotal;
+                return {
+                    productId: product.id,
+                    productName: product.name,
+                    quantity: item.quantity,
+                    price: product.price,
+                    subtotal
+                };
+            });
+
+            // Update product stock
+            let updatedProducts = [...products];
+            cart.forEach(item => {
+                const productIndex = updatedProducts.findIndex(p => p.id === item.productId);
+                if (productIndex !== -1) {
+                    updatedProducts[productIndex].stock -= item.quantity;
+                }
+            });
+            localStorage.setItem('umkmart_products', JSON.stringify(updatedProducts));
+
+            // Create order
+            const orders = JSON.parse(localStorage.getItem('umkmart_orders') || '[]');
+            const newOrder = {
+                id: Date.now(),
+                buyerId: currentUser.id,
+                buyerName: currentUser.name,
+                receiverName,
+                address,
+                phone,
+                postalCode,
+                paymentMethod,
+                items: orderItems,
+                total,
+                status: 'Menunggu Diproses',
+                createdAt: new Date().toISOString()
+            };
+
+            orders.push(newOrder);
+            localStorage.setItem('umkmart_orders', JSON.stringify(orders));
+
+            // Clear cart
+            localStorage.removeItem(`umkmart_cart_${currentUser.id}`);
+
+            bootstrap.Modal.getInstance(document.getElementById('checkoutModal')).hide();
+            showNotification('Pembayaran berhasil! Pesanan Anda sedang diproses.', 'success');
+            document.getElementById('checkoutForm').reset();
+            updateNavbar();
+            showOrders();
+        }
+
+        // Orders Functions
+        function loadOrders() {
+            if (!currentUser) return;
+
+            const orders = JSON.parse(localStorage.getItem('umkmart_orders') || '[]');
+            const container = document.getElementById('ordersList');
+            
+            let userOrders;
+            if (currentUser.type === 'buyer') {
+                userOrders = orders.filter(o => o.buyerId === currentUser.id);
+            } else {
+                // For sellers, show orders containing their products
+                const products = JSON.parse(localStorage.getItem('umkmart_products') || '[]');
+                const sellerProductIds = products.filter(p => p.sellerId === currentUser.id).map(p => p.id);
+                userOrders = orders.filter(o => 
+                    o.items.some(item => sellerProductIds.includes(item.productId))
+                );
+            }
+
+            if (userOrders.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-receipt"></i>
+                        <p>Belum ada transaksi</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = userOrders.reverse().map(order => `
+                <div class="order-card mb-3">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <div>
+                                <h5>Order #${order.id}</h5>
+                                <p class="text-muted mb-0">${new Date(order.createdAt).toLocaleDateString('id-ID')}</p>
+                            </div>
+                            <span class="badge bg-primary">${order.status}</span>
+                        </div>
+                        <div class="mb-3">
+                            ${order.items.map(item => `
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>${item.productName} (${item.quantity}x)</span>
+                                    <span>Rp ${item.subtotal.toLocaleString('id-ID')}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between">
+                            <strong>Total:</strong>
+                            <strong style="color: var(--primary)">Rp ${order.total.toLocaleString('id-ID')}</strong>
+                        </div>
+                        <div class="mt-3">
+                            <p class="mb-1"><strong>Penerima:</strong> ${order.receiverName}</p>
+                            <p class="mb-1"><strong>Alamat:</strong> ${order.address}</p>
+                            <p class="mb-1"><strong>Pembayaran:</strong> ${order.paymentMethod}</p>
+                        </div>
+                        ${currentUser.type === 'seller' ? `
+                            <div class="mt-3">
+                                <button class="btn btn-outline-custom btn-sm" onclick="updateOrderStatus(${order.id}, 'Dikirim')">
+                                    <i class="fas fa-truck"></i> Proses Pengiriman
+                                </button>
+                                <button class="btn btn-primary-custom btn-sm" onclick="updateOrderStatus(${order.id}, 'Selesai')">
+                                    <i class="fas fa-check"></i> Selesaikan
+                                </button>
+                            </div>
+                        ` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updateOrderStatus(orderId, newStatus) {
+            let orders = JSON.parse(localStorage.getItem('umkmart_orders') || '[]');
+            const orderIndex = orders.findIndex(o => o.id === orderId);
+            
+            if (orderIndex !== -1) {
+                orders[orderIndex].status = newStatus;
+                localStorage.setItem('umkmart_orders', JSON.stringify(orders));
+                showNotification(`Status pesanan diupdate: ${newStatus}`, 'success');
+                loadOrders();
+            }
+        }
+
+        // Chat Functions
+        function loadChatContacts() {
+            const users = JSON.parse(localStorage.getItem('umkmart_users') || '[]');
+            const container = document.getElementById('chatContacts');
+            
+            const contacts = users.filter(u => u.id !== currentUser.id);
+            
+            if (contacts.length === 0) {
+                container.innerHTML = '<p class="text-muted">Tidak ada kontak</p>';
+                return;
+            }
+
+            container.innerHTML = contacts.map(user => `
+                <div class="p-2 border-bottom" style="cursor: pointer;" onclick="selectChatUser(${user.id}, '${user.name}')">
+                    <i class="fas fa-user-circle me-2"></i> ${user.name}
+                    <small class="text-muted d-block">${user.type === 'seller' ? 'Penjual' : 'Pembeli'}</small>
+                </div>
+            `).join('');
+        }
+
+        function selectChatUser(userId, userName) {
+            selectedChatUser = { id: userId, name: userName };
+            loadChatMessages();
+        }
+
+        function loadChatMessages() {
+            if (!selectedChatUser) return;
+
+            const chatKey = `umkmart_chat_${Math.min(currentUser.id, selectedChatUser.id)}_${Math.max(currentUser.id, selectedChatUser.id)}`;
+            const messages = JSON.parse(localStorage.getItem(chatKey) || '[]');
+            const container = document.getElementById('chatMessages');
+
+            if (messages.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-comments"></i>
+                        <p>Mulai percakapan dengan ${selectedChatUser.name}</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = messages.map(msg => `
+                <div class="message ${msg.senderId === currentUser.id ? 'message-buyer' : ''}">
+                    <div class="message-content">
+                        <small class="d-block mb-1"><strong>${msg.senderName}</strong></small>
+                        ${msg.text}
+                        <small class="d-block mt-1 opacity-75">${new Date(msg.timestamp).toLocaleTimeString('id-ID')}</small>
+                    </div>
+                </div>
+            `).join('');
+
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function sendMessage() {
+            if (!selectedChatUser) {
+                showNotification('Pilih kontak terlebih dahulu', 'danger');
+                return;
+            }
+
+            const input = document.getElementById('chatInput');
+            const text = input.value.trim();
+            
+            if (!text) return;
+
+            const chatKey = `umkmart_chat_${Math.min(currentUser.id, selectedChatUser.id)}_${Math.max(currentUser.id, selectedChatUser.id)}`;
+            const messages = JSON.parse(localStorage.getItem(chatKey) || '[]');
+
+            messages.push({
+                senderId: currentUser.id,
+                senderName: currentUser.name,
+                text,
+                timestamp: new Date().toISOString()
+            });
+
+            localStorage.setItem(chatKey, JSON.stringify(messages));
+            input.value = '';
+            loadChatMessages();
+        }
+
+        // Notification Function
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `notification-badge bg-${type === 'success' ? 'success' : 'danger'}`;
+            notification.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i> ${message}`;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Initialize Sample Data
+        function initializeSampleData() {
+            // Check if sample data already exists
+            if (localStorage.getItem('umkmart_sample_initialized')) return;
+
+            // Sample users
+            const sampleUsers = [
+                {
+                    id: 1001,
+                    name: 'Toko Kue Ibu Siti',
+                    email: 'siti@umkmart.com',
+                    password: btoa('123456'),
+                    type: 'seller',
+                    createdAt: new Date().toISOString()
+                },
+                {
+                    id: 1002,
+                    name: 'Warung Pak Budi',
+                    email: 'budi@umkmart.com',
+                    password: btoa('123456'),
+                    type: 'seller',
+                    createdAt: new Date().toISOString()
+                }
+            ];
+
+            // Sample products
+            const sampleProducts = [
+                {
+                    id: 2001,
+                    name: 'Kue Nastar Premium',
+                    description: 'Kue nastar dengan isian nanas pilihan, renyah dan lezat. Cocok untuk hampers atau sajian lebaran.',
+                    price: 75000,
+                    stock: 50,
+                    category: 'Makanan',
+                    image: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=500',
+                    sellerId: 1001,
+                    sellerName: 'Toko Kue Ibu Siti',
+                    createdAt: new Date().toISOString()
+                },
+                {
+                    id: 2002,
+                    name: 'Keripik Singkong Original',
+                    description: 'Keripik singkong renyah dengan bumbu original. Gurih dan tidak bikin eneg.',
+                    price: 25000,
+                    stock: 100,
+                    category: 'Makanan',
+                    image: 'https://images.unsplash.com/photo-1621939514649-280e2ee25f60?w=500',
+                    sellerId: 1002,
+                    sellerName: 'Warung Pak Budi',
+                    createdAt: new Date().toISOString()
+                },
+                {
+                    id: 2003,
+                    name: 'Jus Jeruk Segar',
+                    description: 'Jus jeruk asli tanpa pengawet. Segar dan kaya vitamin C.',
+                    price: 15000,
+                    stock: 30,
+                    category: 'Minuman',
+                    image: 'https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=500',
+                    sellerId: 1002,
+                    sellerName: 'Warung Pak Budi',
+                    createdAt: new Date().toISOString()
+                },
+                {
+                    id: 2004,
+                    name: 'Kue Kering Coklat',
+                    description: 'Kue kering dengan taburan coklat chip. Manis dan renyah.',
+                    price: 65000,
+                    stock: 40,
+                    category: 'Makanan',
+                    image: 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=500',
+                    sellerId: 1001,
+                    sellerName: 'Toko Kue Ibu Siti',
+                    createdAt: new Date().toISOString()
+                },
+                {
+                    id: 2005,
+                    name: 'Tas Rajut Handmade',
+                    description: 'Tas rajut tangan dengan motif unik. Cocok untuk gaya kasual.',
+                    price: 150000,
+                    stock: 15,
+                    category: 'Kerajinan',
+                    image: 'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=500',
+                    sellerId: 1001,
+                    sellerName: 'Toko Kue Ibu Siti',
+                    createdAt: new Date().toISOString()
+                },
+                {
+                    id: 2006,
+                    name: 'Sambal Matah Khas Bali',
+                    description: 'Sambal matah dengan resep asli Bali. Pedas segar dan harum.',
+                    price: 35000,
+                    stock: 60,
+                    category: 'Makanan',
+                    image: 'https://images.unsplash.com/photo-1596797038530-2c107229654b?w=500',
+                    sellerId: 1002,
+                    sellerName: 'Warung Pak Budi',
+                    createdAt: new Date().toISOString()
+                }
+            ];
+
+            localStorage.setItem('umkmart_users', JSON.stringify(sampleUsers));
+            localStorage.setItem('umkmart_products', JSON.stringify(sampleProducts));
+            localStorage.setItem('umkmart_sample_initialized', 'true');
+        }
+    </script>
+</body>
+</html>
